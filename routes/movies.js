@@ -7,7 +7,6 @@ const authController = require('../auth');
 
 const router = express.Router();
 
-
 // Route for /movies
 router.route('/')
     .get((req, res) => {

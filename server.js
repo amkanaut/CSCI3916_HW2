@@ -50,6 +50,11 @@ function getJSONObjectForMovieRequirement(req) {
     return json;
 }
 
+// Homepage Route
+router.route('/')
+    .get((req, res) => {
+        res.status(200).send("My API is up and running on Render!");
+    });
 
 
 router.route('/testcollection')
