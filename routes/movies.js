@@ -2,8 +2,8 @@ let envPath = __dirname + "/../.env"
 require('dotenv').config({path:envPath});
 let server = require('../server');
 const express = require('express');
-const authJwtController = require('./auth_jwt');
-const authController = require('./auth');
+const authJwtController = require('../auth_jwt');
+const authController = require('../auth');
 
 const router = express.Router();
 
