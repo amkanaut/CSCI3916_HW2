@@ -13,6 +13,12 @@ var authJwtController = require('./auth_jwt');
 db = require('./db')(); //hack
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
+require('dotenv').config();
+const userAuthRouter = require('./routes/authUsers'); // Import from authUsers.js
+const movieRouter = require('./routes/movies');
+
+
+const secretKey =  process.env.UNIQUE_KEY;
 
 var app = express();
 app.use(cors());
@@ -20,6 +26,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
+
+app.use('/authUsers', userAuthRouter); // Tells requests starting with /authUsers to userAuthRouter
+app.use('/movies', movieRouter); // tells requests starting /movies to movieRouter
 
 var router = express.Router();
 
@@ -41,36 +50,7 @@ function getJSONObjectForMovieRequirement(req) {
     return json;
 }
 
-router.post('/signup', (req, res) => {
-    if (!req.body.username || !req.body.password) {
-        res.json({success: false, msg: 'Please include both username and password to signup.'})
-    } else {
-        var newUser = {
-            username: req.body.username,
-            password: req.body.password
-        };
 
-        db.save(newUser); //no duplicate checking
-        res.json({success: true, msg: 'Successfully created new user.'})
-    }
-});
-
-router.post('/signin', (req, res) => {
-    var user = db.findOne(req.body.username);
-
-    if (!user) {
-        res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
-    } else {
-        if (req.body.password == user.password) {
-            var userToken = { id: user.id, username: user.username };
-            var token = jwt.sign(userToken, process.env.SECRET_KEY);
-            res.json ({success: true, token: 'JWT ' + token});
-        }
-        else {
-            res.status(401).send({success: false, msg: 'Authentication failed.'});
-        }
-    }
-});
 
 router.route('/testcollection')
     .delete(authController.isAuthenticated, (req, res) => {
@@ -93,6 +73,9 @@ router.route('/testcollection')
         res.json(o);
     }
     );
+
+
+
     
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
