@@ -1,7 +1,7 @@
 const express = require('express'); // Use express router
-var authController = require('./auth');
-var authJwtController = require('./auth_jwt');
-const db = require('./db')(); //hack
+var authController = require('../auth');
+var authJwtController = require('../auth_jwt');
+const db = require('../db')(); //hack
 var jwt = require('jsonwebtoken');
 
 const router = express.Router();
