@@ -7,6 +7,25 @@ const authController = require('../auth');
 
 const router = express.Router();
 
+
+function getJSONObjectForMovieRequirement(req) {
+    var json = {
+        headers: "No headers",
+        key: process.env.UNIQUE_KEY,
+        body: "No body"
+    };
+
+    if (req.body != null) {
+        json.body = req.body;
+    }
+
+    if (req.headers != null) {
+        json.headers = req.headers;
+    }
+
+    return json;
+}
+
 // Route for /movies
 router.route('/')
     .get((req, res) => {

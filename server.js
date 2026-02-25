@@ -32,23 +32,6 @@ app.use('/movies', movieRouter); // tells requests starting /movies to movieRout
 
 var router = express.Router();
 
-function getJSONObjectForMovieRequirement(req) {
-    var json = {
-        headers: "No headers",
-        key: process.env.UNIQUE_KEY,
-        body: "No body"
-    };
-
-    if (req.body != null) {
-        json.body = req.body;
-    }
-
-    if (req.headers != null) {
-        json.headers = req.headers;
-    }
-
-    return json;
-}
 
 // Homepage Route
 router.route('/')

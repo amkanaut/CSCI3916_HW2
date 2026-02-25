@@ -27,7 +27,7 @@ router.post('/signin', (req, res) => {
     } else {
         if (req.body.password == user.password) {
             var userToken = { id: user.id, username: user.username };
-            var token = jwt.sign(userToken, process.env.SECRET_KEY);
+            var token = jwt.sign(userToken, process.env.UNIQUE_KEY);
             res.json ({success: true, token: 'JWT ' + token});
         }
         else {
