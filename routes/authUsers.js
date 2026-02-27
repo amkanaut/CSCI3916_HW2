@@ -1,5 +1,5 @@
 const express = require('express'); // Use express router
-var authController = require('../auth');
+var authController = require('../auth'); // ""../" allows it to step out one more directory"
 var authJwtController = require('../auth_jwt');
 var jwt = require('jsonwebtoken');
 

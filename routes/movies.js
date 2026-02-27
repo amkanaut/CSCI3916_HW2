@@ -50,7 +50,7 @@ router.route('/')
         // HTTP PUT Method
         const o = getJSONObjectForMovieRequirement(req);
         // Requires JWT authentication.
-
+        // JWT Authentication is put into parameters of .put method to implement
         // Returns a JSON object with status, message, headers, query, and env.
         
         o.status = 200;
